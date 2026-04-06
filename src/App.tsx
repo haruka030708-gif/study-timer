@@ -685,7 +685,7 @@ export default function App() {
                         backdropFilter: "blur(14px)",
                         boxShadow: "0 12px 30px rgba(94,109,128,0.14)",
                       }}
-                      formatter={(value: number) => [`${value}分`, "勉強時間"]}
+                      formatter={(value) => [`${String(value)}分`, "勉強時間"]}
                     />
                     <Bar dataKey="minutes" radius={[12, 12, 0, 0]} fill="url(#appleBlueGradient)" />
                     <defs>
@@ -737,7 +737,7 @@ export default function App() {
                         backdropFilter: "blur(14px)",
                         boxShadow: "0 12px 30px rgba(94,109,128,0.14)",
                       }}
-                      formatter={(value: number) => [`${value}分`, "勉強時間"]}
+                      formatter={(value) => [`${String(value)}分`, "勉強時間"]}
                     />
                     <Bar dataKey="minutes" radius={[0, 12, 12, 0]} fill="url(#appleBlueGradient2)" />
                     <defs>
