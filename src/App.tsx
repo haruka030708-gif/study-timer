@@ -111,8 +111,8 @@ export default function App() {
   const [dailyGoalMinutes, setDailyGoalMinutes] = useLocalStorage("dailyGoalMinutes", 120);
 
   useEffect(() => {
-    const timer = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(timer);
+    const timer = window.setInterval(() => setNow(new Date()), 1000);
+    return () => window.clearInterval(timer);
   }, []);
 
   const elapsed = useMemo(() => {
@@ -163,7 +163,7 @@ export default function App() {
   const weeklyChartData = useMemo(() => {
     const result: Array<{ label: string; minutes: number }> = [];
 
-    for (let i = 6; i >= 0; i--) {
+    for (let i = 6; i >= 0; i -= 1) {
       const date = new Date(now);
       date.setHours(0, 0, 0, 0);
       date.setDate(date.getDate() - i);
@@ -263,6 +263,14 @@ export default function App() {
       ? "0 10px 20px rgba(96,165,250,0.25), inset 0 1px 0 rgba(255,255,255,0.35)"
       : "inset 0 1px 0 rgba(255,255,255,0.95)",
   });
+
+  const tooltipStyle: CSSProperties = {
+    borderRadius: 16,
+    border: "1px solid rgba(255,255,255,0.95)",
+    background: "rgba(255,255,255,0.88)",
+    backdropFilter: "blur(14px)",
+    boxShadow: "0 12px 30px rgba(94,109,128,0.14)",
+  };
 
   return (
     <div
@@ -678,16 +686,10 @@ export default function App() {
                     <XAxis dataKey="label" tick={{ fill: "#64748b", fontSize: 12 }} axisLine={false} tickLine={false} />
                     <YAxis tick={{ fill: "#64748b", fontSize: 12 }} axisLine={false} tickLine={false} />
                     <Tooltip
-                      contentStyle={{
-                        borderRadius: 16,
-                        border: "1px solid rgba(255,255,255,0.95)",
-                        background: "rgba(255,255,255,0.88)",
-                        backdropFilter: "blur(14px)",
-                        boxShadow: "0 12px 30px rgba(94,109,128,0.14)",
-                      }}
-                      formatter={(value) => [`${String(value)}分`, "勉強時間"]}
+                      contentStyle={tooltipStyle}
+                      labelFormatter={(label) => `日付: ${String(label)}`}
                     />
-                    <Bar dataKey="minutes" radius={[12, 12, 0, 0]} fill="url(#appleBlueGradient)" />
+                    <Bar dataKey="minutes" name="勉強時間（分）" radius={[12, 12, 0, 0]} fill="url(#appleBlueGradient)" />
                     <defs>
                       <linearGradient id="appleBlueGradient" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0%" stopColor="#8fd3ff" />
@@ -730,16 +732,10 @@ export default function App() {
                       tickLine={false}
                     />
                     <Tooltip
-                      contentStyle={{
-                        borderRadius: 16,
-                        border: "1px solid rgba(255,255,255,0.95)",
-                        background: "rgba(255,255,255,0.88)",
-                        backdropFilter: "blur(14px)",
-                        boxShadow: "0 12px 30px rgba(94,109,128,0.14)",
-                      }}
-                      formatter={(value) => [`${String(value)}分`, "勉強時間"]}
+                      contentStyle={tooltipStyle}
+                      labelFormatter={(label) => `科目: ${String(label)}`}
                     />
-                    <Bar dataKey="minutes" radius={[0, 12, 12, 0]} fill="url(#appleBlueGradient2)" />
+                    <Bar dataKey="minutes" name="勉強時間（分）" radius={[0, 12, 12, 0]} fill="url(#appleBlueGradient2)" />
                     <defs>
                       <linearGradient id="appleBlueGradient2" x1="0" y1="0" x2="1" y2="0">
                         <stop offset="0%" stopColor="#9ad9ff" />
