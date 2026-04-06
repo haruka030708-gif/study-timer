@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import {
   BarChart,
   Bar,
@@ -238,7 +238,7 @@ export default function App() {
     setCalendarMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() + offset, 1));
   };
 
-  const glassCard: React.CSSProperties = {
+  const glassCard: CSSProperties = {
     background: "linear-gradient(180deg, rgba(255,255,255,0.78) 0%, rgba(248,251,255,0.62) 100%)",
     backdropFilter: "blur(24px) saturate(140%)",
     WebkitBackdropFilter: "blur(24px) saturate(140%)",
@@ -249,7 +249,7 @@ export default function App() {
     padding: 24,
   };
 
-  const pillButton = (active: boolean): React.CSSProperties => ({
+  const pillButton = (active: boolean): CSSProperties => ({
     padding: "10px 16px",
     borderRadius: 999,
     border: active ? "1px solid rgba(96,165,250,0.65)" : "1px solid rgba(214,224,235,0.8)",
